@@ -1,4 +1,4 @@
-variable "fsc_cloud" {  
+variable "project_name" {  
   description = "FSC Cloud"  
   type        = string 
   default     = "MyWebApp"
@@ -35,4 +35,39 @@ variable "client_secret" {
   description = "Azure Client Secret"
   type        = string
   sensitive   = true
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment (dev/test/prod)"
+}
+
+variable "resource_group_suffix" {
+  type        = string
+  description = "Suffix for RG name"
+}
+
+variable "static_web_app_sku_tier" {
+  type        = string
+  default     = "Free"
+}
+
+variable "static_web_app_sku_size" {
+  type        = string
+  default     = "Free"
+}
+
+variable "storage_account_replication_type" {
+  type        = string
+  default     = "LRS"
+}
+
+variable "budget_amount" {
+  type        = number
+  default     = 50.0
+}
+
+variable "budget_contact_email" {
+  type        = list(string)
+  description = "List of email addresses for budget alerts"
 }
