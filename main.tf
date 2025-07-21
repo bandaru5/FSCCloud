@@ -29,13 +29,14 @@ resource "azurerm_consumption_budget_subscription" "budget" {
     end_date   = "2099-12-31"
   }
 
-  notifications {
+  notification {
     enabled        = true
     operator       = "GreaterThan"
     threshold      = 90.0
     contact_emails = var.budget_contact_email
   }
 }
+
 
 provider "azurerm" {
   features{}  
