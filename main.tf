@@ -39,6 +39,6 @@ resource "azurerm_consumption_budget_subscription" "budget" {
 
 
 #provider "azurerm" {
-  features{}  
+#  features{}  
 # Authenticate with Azure CLI for simplicity in demo  # In production, it is recommended to use Service Principal or Managed Identity for authentication.
 #}
