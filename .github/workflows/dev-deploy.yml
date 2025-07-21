@@ -1,0 +1,47 @@
+name: Terraform CI/CD Dev/Test/Prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment (dev/test/prod)"
+        required: true
+        default: "dev"
+
+jobs:
+  terraform:
+    name: Deploy to ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+
+    env:
+      ARM_CLIENT_ID: ae804023-6493-4238-ba56-8ec6171327f0
+      ARM_CLIENT_SECRET: 1d77698e-8e19-4daf-9f65-345137856a34
+      ARM_SUBSCRIPTION_ID: 29760404-2fa8-46e6-b53d-2e616c1be5ce
+      ARM_TENANT_ID: 004cf285-b50e-4fde-8f95-bd7de25ebe69
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.6
+
+    - name: Terraform Init
+      run: terraform init -backend-config="key=env-${{ github.event.inputs.environment }}.tfstate"
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      #run: terraform plan -var-file="${{ github.event.inputs.environment }}/terraform.tfvars"
+      run: terraform plan -var-file="${{ github.event.inputs.environment }}.tfvars"
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      #run: terraform apply -auto-approve -var-file="${{ github.event.inputs.environment }}/terraform.tfvars"
+      run: terraform apply -auto-approve -var-file="${{ github.event.inputs.environment }}.tfvars"
