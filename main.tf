@@ -9,14 +9,7 @@ terraform {
  }
 }
 
-resource "azurerm_resource_group" "main" {
-  name     = "rg-${var.project_name}-${var.resource_group_suffix}"
-  location = var.location
-  tags = {
-    Environment = var.environment
-    Project     = var.project_name
-  }
-}
+resource_group_name = "rg-MyWebApp-dev"
 
 resource "azurerm_consumption_budget_subscription" "budget" {
   name            = "budget-${var.environment}"
@@ -24,10 +17,10 @@ resource "azurerm_consumption_budget_subscription" "budget" {
   time_grain      = "Monthly"
   subscription_id = "/subscriptions/${var.subscription_id}"
 
-  time_period {
-    start_date = formatdate("YYYY-MM-DD'T'00:00:00'Z'", timestamp())
-    end_date   = "2099-12-31T00:00:00Z"
-  }
+time_period {
+  start_date = "2025-07-01T00:00:00Z"
+  end_date   = "2099-12-31T00:00:00Z"
+}
 
   notification {
     enabled        = true
