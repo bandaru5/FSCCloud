@@ -9,14 +9,7 @@ terraform {
  }
 }
 
-resource "azurerm_resource_group" "main" {
-  name     = "rg-${var.project_name}-${var.resource_group_suffix}"
-  location = var.location
-  tags = {
-    Environment = var.environment
-    Project     = var.project_name
-  }
-}
+terraform import azurerm_resource_group.main /subscriptions/<subscription_id>/resourceGroups/rg-MyWebApp-dev
 
 resource "azurerm_consumption_budget_subscription" "budget" {
   name            = "budget-${var.environment}"
