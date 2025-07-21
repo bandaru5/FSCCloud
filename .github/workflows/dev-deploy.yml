@@ -61,7 +61,7 @@ jobs:
       run: |
         terraform apply -auto-approve \
           -var-file="environments/${{ github.event.inputs.environment }}/terraform.tfvars" \
-          -var="subscription_id=/subscriptions/${{ secrets.ARM_SUBSCRIPTION_ID }}" \
+          -var="subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
           -var="client_id=${{ secrets.ARM_CLIENT_ID }}" \
           -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}" \
           -var="tenant_id=${{ secrets.ARM_TENANT_ID }}"
