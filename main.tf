@@ -22,7 +22,7 @@ resource "azurerm_consumption_budget_subscription" "budget" {
   name            = "budget-${var.environment}"
   amount          = var.budget_amount
   time_grain      = "Monthly"
-  subscription_id = var.subscription_id
+  subscription_id = "/subscriptions/${var.subscription_uuid_only}"
 
   time_period {
     start_date = formatdate("YYYY-MM-DD", timestamp())

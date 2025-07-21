@@ -26,17 +26,6 @@ variable "tenant_id" {
   type        = string 
 }
 
-variable "client_id" {
-  description = "Azure Client ID"
-  type        = string
-}
-
-variable "client_secret" {
-  description = "Azure Client Secret"
-  type        = string
-  sensitive   = true
-}
-
 variable "environment" {
   type        = string
   description = "Environment (dev/test/prod)"
