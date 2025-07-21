@@ -25,8 +25,8 @@ resource "azurerm_consumption_budget_subscription" "budget" {
   subscription_id = "/subscriptions/${var.subscription_id}"
 
   time_period {
-    start_date = formatdate("YYYY-MM-DD", timestamp())
-    end_date   = "2099-12-31"
+    start_date = formatdate("YYYY-MM-DD'T'00:00:00'Z'", timestamp())
+    end_date   = "2099-12-31T00:00:00Z"
   }
 
   notification {
