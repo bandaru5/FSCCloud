@@ -37,8 +37,11 @@ jobs:
     - name: Terraform Validate
       run: terraform validate
 
+    - name: Real Subscription ID
+      run: echo "Real subscription ID = ${{ secrets.ARM_SUBSCRIPTION_ID }}"
+
     - name: Debug Subscription ID
-      run: echo "subscription ID = /subscriptions/${{ secrets.ARM_SUBSCRIPTION_ID }}"
+      run: echo "Debug subscription ID = /subscriptions/${{ secrets.ARM_SUBSCRIPTION_ID }}"
 
     - name: Terraform Plan
       #run: terraform plan -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
