@@ -17,10 +17,10 @@ jobs:
         working-directory: .
 
     env:
-      ARM_CLIENT_ID: ae804023-6493-4238-ba56-8ec6171327f0
-      ARM_CLIENT_SECRET: 1d77698e-8e19-4daf-9f65-345137856a34
-      ARM_SUBSCRIPTION_ID: 29760404-2fa8-46e6-b53d-2e616c1be5ce
-      ARM_TENANT_ID: 004cf285-b50e-4fde-8f95-bd7de25ebe69
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
     steps:
     - name: Checkout code
@@ -39,10 +39,22 @@ jobs:
 
     - name: Terraform Plan
       #run: terraform plan -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
-      run: terraform plan -var-file="environments/${{ github.event.inputs.environment}}/terraform.tfvars"
+      #run: terraform plan -var-file="environments/${{ github.event.inputs.environment}}/terraform.tfvars"
+      run: terraform plan \
+        -var-file="environments/${{ github.event.inputs.environment }}/terraform.tfvars" \
+        -var="subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
+        -var="client_id=${{ secrets.ARM_CLIENT_ID }}" \
+        -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}" \
+        -var="tenant_id=${{ secrets.ARM_TENANT_ID }}"
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
       #run: terraform apply -auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
-      run: terraform apply -auto-approve -var-file="environments/${{ github.event.inputs.environment }}/terraform.tfvars"
+      #run: terraform apply -auto-approve -var-file="environments/${{ github.event.inputs.environment }}/terraform.tfvars"
+      run: terraform apply -auto-approve \
+        -var-file="environments/${{ github.event.inputs.environment }}/terraform.tfvars" \
+        -var="subscription_id=${{ secrets.ARM_SUBSCRIPTION_ID }}" \
+        -var="client_id=${{ secrets.ARM_CLIENT_ID }}" \
+        -var="client_secret=${{ secrets.ARM_CLIENT_SECRET }}" \
+        -var="tenant_id=${{ secrets.ARM_TENANT_ID }}"
 

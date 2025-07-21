@@ -7,7 +7,3 @@ static_web_app_sku_size = "Free"
 storage_account_replication_type = "LRS" # [30]
 budget_amount = 50.0 # USD
 budget_contact_email = ["devops-alerts@example.com"]
-subscription_id = "29760404-2fa8-46e6-b53d-2e616c1be5ce"
-client_id = "ae804023-6493-4238-ba56-8ec6171327f0"
-client_secret = "1d77698e-8e19-4daf-9f65-345137856a34"
-tenant_id = "004cf285-b50e-4fde-8f95-bd7de25ebe69"
